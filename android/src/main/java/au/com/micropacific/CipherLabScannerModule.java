@@ -362,16 +362,18 @@ public class CipherLabScannerModule extends ReactContextBaseJavaModule {
     {
         rReaderManager.SoftScanTrigger(doScan);
     }
-    @ReactMethod
-    public void requestRfidScan(boolean doScan)
-    {
-        rReaderManager.SoftScanTrigger(doScan);
-    }
 
     @ReactMethod
     public void switchGunModeToRFID(boolean switchToRFIDMode) {
         rReaderManager.SetRFIDSwitchStatus(switchToRFIDMode);
     }
+
+    @ReactMethod
+    public void initialiseRfid() {
+        this.initialiseRfid(true);
+    }
+
+
 
     public void initialiseRfid(boolean checkRegisteredModules)
     {
