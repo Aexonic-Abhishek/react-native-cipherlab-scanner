@@ -358,6 +358,15 @@ public class CipherLabScannerModule extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
+    public void isRfidReaderConnected()
+    {
+        Boolean status = rReaderManager.GetConnectionStatus();
+        WritableMap statusParams = Arguments.createMap();
+        statusParams.putString("status", status.toString());
+        this.sendRfidEvent(_reactContext, "rfidStatus", statusParams);
+    }
+
+    @ReactMethod
     public void requestRfidScan(boolean doScan)
     {
         rReaderManager.SoftScanTrigger(doScan);
@@ -404,6 +413,8 @@ public class CipherLabScannerModule extends ReactContextBaseJavaModule {
             rfidFilter = new IntentFilter();
             rfidFilter.addAction(com.cipherlab.rfid.GeneralString.Intent_RFIDSERVICE_CONNECTED);
             rfidFilter.addAction(com.cipherlab.rfid.GeneralString.Intent_RFIDSERVICE_TAG_DATA);
+            rfidFilter.addAction(com.cipherlab.rfid.GeneralString.Intent_GUN_Attached);
+            rfidFilter.addAction(com.cipherlab.rfid.GeneralString.Intent_GUN_Unattached);
 
 
 
