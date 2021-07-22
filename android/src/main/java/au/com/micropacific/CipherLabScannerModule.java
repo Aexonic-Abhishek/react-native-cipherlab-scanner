@@ -22,6 +22,7 @@ SOFTWARE.
 
 package au.com.micropacific.react.cipherlab;
 
+import com.cipherlab.rfid.ScanMode;
 import com.cipherlab.rfidapi.RfidManager;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -364,6 +365,22 @@ public class CipherLabScannerModule extends ReactContextBaseJavaModule {
         WritableMap statusParams = Arguments.createMap();
         statusParams.putString("status", status.toString());
         this.sendRfidEvent(_reactContext, "rfidStatus", statusParams);
+    }
+
+    @ReactMethod
+    public void setRfidScanMode(String mode) {
+        switch(mode) {
+            case "alternate":
+                rReaderManager.SetScanMode(ScanMode.Alternate);
+                break;
+            case "continuous":
+                rReaderManager.SetScanMode(ScanMode.Continuous);
+            case "single":
+                rReaderManager.SetScanMode(ScanMode.Single);
+            default:
+                rReaderManager.SetScanMode(ScanMode.Continuous);
+                break;
+        }
     }
 
     @ReactMethod
